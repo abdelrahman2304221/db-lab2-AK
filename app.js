@@ -8,14 +8,13 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static('public')); // NEW
+app.use(express.static('public'));
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
 }));
 
-// ---------- helpers ----------
 function requireLogin(req, res, next) {
   if (!req.session.userId) return res.redirect('/login');
   next();
@@ -37,12 +36,10 @@ function checkTitle(raw) {
   return { title, errors };
 }
 
-// ---------- home ----------
 app.get('/', (req, res) => {
   res.redirect(req.session.userId ? '/todos' : '/login');
 });
 
-// ---------- register ----------
 app.get('/register', (req, res) => {
   res.render('register', { errors: [], values: {} });
 });
@@ -82,7 +79,6 @@ app.post('/register', async (req, res) => {
   }
 });
 
-// ---------- login / logout ----------
 app.get('/login', (req, res) => {
   res.render('login', { errors: [], values: {} });
 });
@@ -124,7 +120,6 @@ app.post('/logout', (req, res) => {
   req.session.destroy(() => res.redirect('/login'));
 });
 
-// ---------- to-do list ----------
 app.get('/todos', requireLogin, async (req, res) => {
   try {
     await renderTodos(req, res, [], '');

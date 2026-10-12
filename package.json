@@ -1,23 +1,19 @@
 {
-  "name": "db-lab2-jr",
+  "name": "db-lab2-ak",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Database Systems Lab 2 - Login and To-Do Application",
+  "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JoudyMohamed05/db-lab2-JR.git"
+    "url": "https://github.com/abdelrahman2304221/db-lab2-AK.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Abdelrahman",
   "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/JoudyMohamed05/db-lab2-JR/issues"
-  },
-  "homepage": "https://github.com/JoudyMohamed05/db-lab2-JR#readme",
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "dotenv": "^18.0.7",

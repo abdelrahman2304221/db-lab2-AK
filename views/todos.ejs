@@ -3,57 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>To-Do</title>
+  <title>To-Do List</title>
   <style>
     * { box-sizing: border-box; }
     body {
       margin: 0;
       min-height: 100vh;
-      background: #f3f4f6;
+      background: #e0f2fe; /* Baby blue background matching register/login */
       font-family: "Segoe UI", Arial, sans-serif;
       color: #1f2937;
       padding: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .card {
       width: 100%;
       max-width: 640px;
-      margin: 24px auto;
       background: #ffffff;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      padding: 28px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     }
-    .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-    h1 { margin: 0; font-size: 26px; }
-    .user { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #6b7280; }
+    .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+    h1 { margin: 0; font-size: 26px; color: #0369a1; }
+    .user { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #475569; }
     .user form { margin: 0; }
     input[type="text"] {
       width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #d1d5db;
+      padding: 10px 14px;
+      border: 1px solid #cbd5e1;
       border-radius: 8px;
       font-size: 15px;
     }
     input[type="text"]:focus {
       outline: none;
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+      border-color: #0284c7;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
     }
     button {
-      padding: 9px 14px;
+      padding: 9px 16px;
       border: none;
       border-radius: 8px;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
+      transition: background 0.2s;
     }
-    .btn-primary { background: #2563eb; color: #ffffff; }
-    .btn-primary:hover { background: #1d4ed8; }
-    .btn-light { background: #e5e7eb; color: #1f2937; }
-    .btn-light:hover { background: #d1d5db; }
+    .btn-primary { background: #0284c7; color: #ffffff; }
+    .btn-primary:hover { background: #0369a1; }
+    .btn-light { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; }
+    .btn-light:hover { background: #e2e8f0; }
     .btn-danger { background: #fee2e2; color: #b91c1c; }
     .btn-danger:hover { background: #fecaca; }
-    .add-form { display: flex; gap: 8px; margin: 20px 0 8px; }
+    .add-form { display: flex; gap: 8px; margin: 15px 0 8px; }
     .errors {
       background: #fef2f2;
       border: 1px solid #fecaca;
@@ -70,7 +73,7 @@
       align-items: center;
       gap: 8px;
       padding: 10px 0;
-      border-top: 1px solid #f3f4f6;
+      border-top: 1px solid #f1f5f9;
     }
     .item form { margin: 0; }
     .item .edit-form { display: flex; flex: 1; gap: 8px; min-width: 0; }
@@ -79,14 +82,18 @@
       height: 34px;
       padding: 0;
       border-radius: 50%;
-      border: 2px solid #9ca3af;
+      border: 2px solid #94a3b8;
       background: #ffffff;
       color: #ffffff;
       font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
     }
     .item.done .check { background: #16a34a; border-color: #16a34a; }
-    .item.done input[type="text"] { text-decoration: line-through; color: #9ca3af; background: #f9fafb; }
-    .empty { text-align: center; color: #6b7280; padding: 32px 0 12px; font-size: 15px; }
+    .item.done input[type="text"] { text-decoration: line-through; color: #94a3b8; background: #f8fafc; }
+    .empty { text-align: center; color: #64748b; padding: 32px 0 12px; font-size: 15px; }
     @media (max-width: 520px) {
       .item { flex-wrap: wrap; }
       .item .edit-form { flex-basis: 100%; order: 3; }
@@ -97,7 +104,7 @@
 <body>
   <div class="card">
     <div class="top">
-      <h1>To-Do</h1>
+      <h1>To-Do List</h1>
       <div class="user">
         <span>Hi, <%= name %></span>
         <form method="POST" action="/logout">

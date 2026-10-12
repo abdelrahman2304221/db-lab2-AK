@@ -3,140 +3,202 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Login</title>
+  <title>Log in</title>
   <style>
+    :root {
+      --blue: #89cff0;        /* baby blue */
+      --blue-hover: #6dbde3;  /* baby blue a2wa shwaya */
+      --blue-text: #1d6a96;   /* azra2 gamed lel links wel kalam */
+      --sky: #e6f4fc;         /* azra2 fate7 gedan */
+      --ink: #12323f;
+      --muted: #5d6f76;
+      --line: #cfdadd;
+      --danger: #b42318;
+    }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       min-height: 100vh;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #f3f4f6;
       font-family: "Segoe UI", Arial, sans-serif;
-      color: #1f2937;
-      padding: 16px;
-    }
-    .card {
-      width: 100%;
-      max-width: 420px;
+      color: var(--ink);
       background: #ffffff;
-      padding: 32px 28px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     }
-    h1 { margin: 0 0 4px; font-size: 26px; }
-    .subtitle { margin: 0 0 20px; color: #6b7280; font-size: 14px; }
-    label { display: block; margin: 14px 0 6px; font-size: 14px; font-weight: 600; }
-    .req { color: #dc2626; margin-left: 2px; }
-    input {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
+
+    /* Left side */
+    .side {
+      flex: 1;
+      background: var(--blue);
+      color: var(--ink);
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 28px;
+    }
+    .side h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 38px;
+      line-height: 1.15;
+      font-weight: 700;
+      max-width: 14ch;
+    }
+    .side p { margin: 0; max-width: 36ch; line-height: 1.5; }
+    .preview { list-style: none; margin: 0; padding: 0; max-width: 320px; }
+    .preview li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 6px;
       font-size: 15px;
     }
-    input:focus {
-      outline: none;
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    .preview .box {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--blue-text);
+      border-radius: 4px;
+      flex-shrink: 0;
     }
-    .pw-wrap { position: relative; }
-    .pw-wrap input { padding-right: 44px; }
-    .toggle-pw {
-      position: absolute;
-      top: 50%;
-      right: 8px;
-      transform: translateY(-50%);
-      width: 32px;
-      height: 32px;
-      margin: 0;
-      padding: 0;
-      background: none;
-      border: none;
-      border-radius: 6px;
-      color: #6b7280;
-      cursor: pointer;
+    .preview .done { color: var(--muted); text-decoration: line-through; }
+    .preview .done .box { background: var(--blue-text); }
+
+    /* Right side */
+    .main {
+      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 32px 20px;
     }
-    .toggle-pw:hover { background: #f3f4f6; color: #1f2937; }
-    .toggle-pw svg { width: 20px; height: 20px; }
-    .toggle-pw .eye-off { display: none; }
+    .form-box { width: 100%; max-width: 380px; }
+    .form-box h1 { margin: 0 0 6px; font-size: 28px; }
+    .subtitle { margin: 0 0 24px; color: var(--muted); font-size: 15px; }
+
+    label { display: block; margin: 16px 0 6px; font-size: 14px; font-weight: 600; }
+    .req { color: var(--danger); }
+    input {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1.5px solid var(--line);
+      border-radius: 6px;
+      font-size: 15px;
+      color: var(--ink);
+      background: #ffffff;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px var(--sky);
+    }
+
+    /* Password + Show/Hide */
+    .pw-row { display: flex; gap: 8px; }
+    .pw-row input { flex: 1; min-width: 0; }
+    .toggle-pw {
+      width: 68px;
+      border: 1.5px solid var(--line);
+      border-radius: 6px;
+      background: #ffffff;
+      color: var(--blue-text);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .toggle-pw:hover { background: var(--sky); }
+    .toggle-pw:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+
     button.submit {
       width: 100%;
-      margin-top: 22px;
-      padding: 12px;
-      background: #2563eb;
-      color: #ffffff;
+      margin-top: 24px;
+      padding: 13px;
+      background: var(--blue);
+      color: var(--ink);
       border: none;
-      border-radius: 8px;
+      border-radius: 6px;
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
     }
-    button.submit:hover { background: #1d4ed8; }
+    button.submit:hover { background: var(--blue-hover); }
+    button.submit:focus-visible { outline: 3px solid var(--blue-text); outline-offset: 2px; }
+
     .errors {
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      color: #b91c1c;
+      background: #fff1f0;
+      border-left: 4px solid var(--danger);
+      color: var(--danger);
       padding: 10px 14px;
-      border-radius: 8px;
+      border-radius: 4px;
       margin-bottom: 8px;
       font-size: 14px;
     }
     .errors ul { margin: 0; padding-left: 18px; }
-    .footer-text { text-align: center; margin-top: 18px; font-size: 14px; color: #6b7280; }
-    .footer-text a { color: #2563eb; text-decoration: none; font-weight: 600; }
-    .footer-text a:hover { text-decoration: underline; }
-    .note { font-size: 12px; color: #6b7280; margin: 0 0 4px; }
+
+    .footer-text { margin-top: 22px; font-size: 14px; color: var(--muted); }
+    .footer-text a { color: var(--blue-text); font-weight: 600; }
+
+    /* Phones */
+    @media (max-width: 760px) {
+      .side { display: none; }
+      .main { align-items: flex-start; padding-top: 48px; }
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Welcome back</h1>
-    <p class="subtitle">Log in to see your to-do list</p>
-    <p class="note"><span class="req">*</span> required field</p>
+  <section class="side">
+    <h2>Your day, one list.</h2>
+    <p>Add what needs doing, tick it off when it is done.</p>
+    <ul class="preview" aria-hidden="true">
+      <li><span class="box"></span>Buy oat milk</li>
+      <li class="done"><span class="box"></span>Finish the database lab</li>
+      <li><span class="box"></span>Call mum</li>
+    </ul>
+  </section>
 
-    <% if (errors.length > 0) { %>
-      <div class="errors">
-        <ul>
-          <% errors.forEach(function(e) { %>
-            <li><%= e %></li>
-          <% }) %>
-        </ul>
-      </div>
-    <% } %>
+  <main class="main">
+    <div class="form-box">
+      <h1>Log in</h1>
+      <p class="subtitle">Open your to-do list.</p>
 
-    <form method="POST" action="/login" novalidate>
-      <label for="email">Email <span class="req">*</span></label>
-      <input type="email" id="email" name="email" value="<%= values.email || '' %>">
+      <% if (errors.length > 0) { %>
+        <div class="errors">
+          <ul>
+            <% errors.forEach(function(e) { %>
+              <li><%= e %></li>
+            <% }) %>
+          </ul>
+        </div>
+      <% } %>
 
-      <label for="password">Password <span class="req">*</span></label>
-      <div class="pw-wrap">
-        <input type="password" id="password" name="password">
-        <button type="button" class="toggle-pw" data-target="password" aria-label="Show password">
-          <svg class="eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-        </button>
-      </div>
+      <form method="POST" action="/login" novalidate>
+        <label for="email">Email <span class="req">*</span></label>
+        <input type="email" id="email" name="email" value="<%= values.email || '' %>">
 
-      <button type="submit" class="submit">Login</button>
-    </form>
+        <label for="password">Password <span class="req">*</span></label>
+        <div class="pw-row">
+          <input type="password" id="password" name="password">
+          <button type="button" class="toggle-pw" data-target="password" aria-label="Show password">Show</button>
+        </div>
 
-    <p class="footer-text">Don't have an account? <a href="/register">Register</a></p>
-  </div>
+        <button type="submit" class="submit">Log in</button>
+      </form>
+
+      <p class="footer-text">No account yet? <a href="/register">Register</a></p>
+    </div>
+  </main>
 
   <script>
+    // Show / Hide the password
     document.querySelectorAll('.toggle-pw').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var input = document.getElementById(btn.dataset.target);
-        var show = input.type === 'password';
-        input.type = show ? 'text' : 'password';
-        btn.querySelector('.eye').style.display = show ? 'none' : 'block';
-        btn.querySelector('.eye-off').style.display = show ? 'block' : 'none';
-        btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+        var showing = input.type === 'text';
+        input.type = showing ? 'password' : 'text';
+        btn.textContent = showing ? 'Show' : 'Hide';
+        btn.setAttribute('aria-label', showing ? 'Show password' : 'Hide password');
       });
     });
   </script>
